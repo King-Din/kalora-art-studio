@@ -7,6 +7,7 @@ import AsyncState from "../components/AsyncState.jsx";
 import BuyButton from "../components/BuyButton.jsx";
 import { Badge, Img } from "../components/Common.jsx";
 import { useAsync } from "../hooks/useAsync.js";
+import heroArtImg from "../assets/hero-interior-feathered.png";
 
 export default function Gallery() {
   const { user } = useAuth();
@@ -51,9 +52,9 @@ export default function Gallery() {
             </div>
           </div>
 
-          <div className="hero-art-col" aria-hidden="true">
+          <div className="hero-art-col">
             <img
-              src="/images/hero-interior-feathered.png"
+              src={heroArtImg}
               alt="Artisan Indian interior with peacock painting and lotus murals"
               className="hero-art-img"
             />
