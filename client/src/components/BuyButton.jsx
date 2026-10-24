@@ -17,9 +17,12 @@ export default function BuyButton({ painting, onChanged }) {
     setAlternatives([]);
     try {
       await api(`/paintings/${painting._id}/buy`, { method: "POST" });
-      setMessage({ ok: true, text: "Order placed! You can see it under My activity." });
+      setMessage({ ok: true, text: "Acquisition confirmed! Your order is recorded under My Activity." });
     } catch (err) {
-      setMessage({ ok: false, text: err.code === "PAINTING_ALREADY_SOLD" ? "Someone bought this a moment ago." : friendly(err) });
+      setMessage({
+        ok: false,
+        text: err.code === "PAINTING_ALREADY_SOLD" ? "Another collector acquired this piece a moment ago." : friendly(err),
+      });
       if (err.code === "PAINTING_ALREADY_SOLD") {
         try {
           const fresh = (await api("/paintings?available=true")).paintings.filter((p) => p._id !== painting._id);
@@ -38,17 +41,38 @@ export default function BuyButton({ painting, onChanged }) {
 
   return (
     <div>
-      <button onClick={buy} disabled={sold || busy || message?.ok}>
-        {sold ? "Sold" : busy ? "Buying…" : "Buy"}
+      <button
+        onClick={buy}
+        disabled={sold || busy || message?.ok}
+        className={sold ? "secondary" : "btn"}
+        style={{ width: "100%", justifyContent: "center" }}
+      >
+        {sold ? "Archived / Sold" : busy ? "Securing Canvas…" : `Acquire Original · ${money(painting.price)}`}
       </button>
+
       <div aria-live="polite">
-        {message && <p className={message.ok ? "ok" : "alert"} role={message.ok ? "status" : "alert"}>{message.text}</p>}
+        {message && (
+          <p
+            className={message.ok ? "ok" : "alert"}
+            role={message.ok ? "status" : "alert"}
+            style={{ fontSize: "0.88rem", marginTop: "0.75rem" }}
+          >
+            {message.text}
+          </p>
+        )}
         {alternatives.length > 0 && (
-          <div>
-            <small>You might like:</small>
-            <ul className="plain">
+          <div style={{ marginTop: "0.75rem", background: "var(--surface-warm)", padding: "0.75rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-cream)" }}>
+            <span style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--terracotta)", display: "block", marginBottom: "0.35rem" }}>
+              Suggested Alternative Works:
+            </span>
+            <ul className="plain" style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
               {alternatives.map((a) => (
-                <li key={a._id}><Link to={`/paintings/${a._id}`}>{a.title}</Link> · {a.style} · {money(a.price)}</li>
+                <li key={a._id} style={{ fontSize: "0.85rem" }}>
+                  <Link to={`/paintings/${a._id}`} style={{ fontWeight: 600 }}>
+                    {a.title}
+                  </Link>{" "}
+                  <span className="muted">· {a.style} · {money(a.price)}</span>
+                </li>
               ))}
             </ul>
           </div>
