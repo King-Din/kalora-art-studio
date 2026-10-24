@@ -1,0 +1,9 @@
+node_modules/
+.env
+dist/
+coverage/
+notes/
+reference/
+__MACOSX/
+._*
+.DS_Store

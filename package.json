@@ -1,0 +1,20 @@
+{
+  "name": "art-studio",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "workspaces": ["server", "client"],
+  "scripts": {
+    "dev": "concurrently -n server,client -c blue,green \"npm run dev -w server\" \"npm run dev -w client\"",
+    "build": "npm run build -w client",
+    "start": "npm run start -w server",
+    "seed": "node server/scripts/seed.js",
+    "db:check": "node server/scripts/db-check.js",
+    "verify:indexes": "node server/scripts/verify-indexes.js",
+    "test": "npm run test -w server",
+    "race": "node server/scripts/race-test.js",
+    "demo-reset": "node server/scripts/demo-reset.js"
+  },
+  "devDependencies": { "concurrently": "^9.0.0" }
+}
