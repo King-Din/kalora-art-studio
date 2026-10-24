@@ -43,8 +43,8 @@ export function call(app, user, method, url, body) {
   return body === undefined ? req : req.send(body);
 }
 
-let dateCounter = 0;
-export const nextDate = () => addDays(todayIST(), 7 + (dateCounter++ % 80)); // 7..86 days away
+let dateCounter = 1;
+export const nextDate = () => addDays(todayIST(), 7 + (dateCounter++ % 80)); // 8..86 days away
 
 export async function makePainting({ status = "available", price = 5000, style = "Warli" } = {}) {
   return Painting.create({ seedId: `t-${uniq()}`, title: "Test Painting", artist: "Tester", price, imageUrl: "/images/x.jpg", style, status });
