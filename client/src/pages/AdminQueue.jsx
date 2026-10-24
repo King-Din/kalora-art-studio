@@ -43,7 +43,7 @@ const KINDS = {
     ),
   },
   pottery: {
-    title: "Custom Pottery Inquiries",
+    title: "Clay Pottery Requests",
     path: "/pottery",
     key: "requests",
     statuses: ["requested", "accepted", "declined", "cancelled"],
@@ -92,15 +92,19 @@ export default function AdminQueue({ kind }) {
   }
 
   return (
-    <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1180px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>
         <div>
-          <span className="kicker">Operations Queue</span>
-          <h1>{cfg.title}</h1>
+          <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--gold-antique)", fontWeight: 700 }}>
+            OPERATIONS QUEUE
+          </span>
+          <h1 style={{ fontSize: "2.8rem", color: "var(--text-ivory)", margin: "0.25rem 0 0.75rem 0", fontFamily: "var(--font-serif)" }}>
+            {cfg.title}
+          </h1>
         </div>
-        <div style={{ minWidth: "180px" }}>
-          <label style={{ fontSize: "0.85rem", fontWeight: 600 }}>
-            Filter by Status
+        <div style={{ minWidth: "200px" }}>
+          <label style={{ fontSize: "0.82rem", fontWeight: 700, color: "var(--gold-antique)", textTransform: "uppercase", letterSpacing: "0.08em" }}>
+            Filter Status
             <select value={status} onChange={(e) => setStatus(e.target.value)} style={{ marginTop: "0.25rem" }}>
               <option value="">All Statuses</option>
               {cfg.statuses.map((s) => (
@@ -121,13 +125,13 @@ export default function AdminQueue({ kind }) {
         emptyText="No items found in this operational queue."
       >
         {(d) => (
-          <ul className="plain" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {d[cfg.key].map((item) => (
-              <li key={item._id} className="card">
+              <li key={item._id} className="panel-cream">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.5rem" }}>
                   <div>
                     <h3 style={{ margin: "0 0 0.25rem 0" }}>{cfg.summary(item)}</h3>
-                    <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>
+                    <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--text-dark-muted)" }}>
                       <strong>Collector:</strong> {item.customer?.name} ({item.customer?.email})
                     </p>
                   </div>
@@ -151,9 +155,9 @@ export default function AdminQueue({ kind }) {
                       marginTop: "1.25rem",
                       paddingTop: "1.25rem",
                       borderTop: "1px solid var(--border-cream)",
-                      background: "var(--surface-warm)",
+                      background: "var(--surface-cream-alt)",
                       padding: "1.25rem",
-                      borderRadius: "var(--radius-sm)",
+                      borderRadius: "var(--radius-btn)",
                     }}
                   >
                     {cfg.detail(item)}
@@ -162,7 +166,7 @@ export default function AdminQueue({ kind }) {
 
                     {cfg.actions.some((a) => a.from.includes(item.status)) ? (
                       <div style={{ marginTop: "1.25rem", borderTop: "1px solid var(--border-cream)", paddingTop: "1rem" }}>
-                        <label style={{ display: "flex", flexDirection: "column", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 600 }}>
+                        <label style={{ display: "flex", flexDirection: "column", gap: "0.35rem", fontSize: "0.85rem", fontWeight: 700, color: "var(--text-dark-title)" }}>
                           Studio Action Note (Optional)
                           <input
                             value={note}
@@ -171,7 +175,7 @@ export default function AdminQueue({ kind }) {
                             onChange={(e) => setNote(e.target.value)}
                           />
                         </label>
-                        <div className="row" style={{ marginTop: "0.75rem" }}>
+                        <div style={{ display: "flex", gap: "0.75rem", marginTop: "0.75rem" }}>
                           {cfg.actions.map((a) => (
                             <button
                               key={a.slug}
@@ -186,7 +190,7 @@ export default function AdminQueue({ kind }) {
                       </div>
                     ) : (
                       cfg.actions.length > 0 && (
-                        <p className="muted" style={{ fontSize: "0.85rem", marginTop: "0.75rem" }}>
+                        <p style={{ fontSize: "0.85rem", marginTop: "0.75rem", color: "var(--text-dark-muted)" }}>
                           No further operations allowed: this item is {item.status}.
                         </p>
                       )

@@ -19,11 +19,15 @@ export default function AdminPaintings() {
   const [editing, setEditing] = useState(null); // painting _id, or "new"
 
   return (
-    <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
+    <div style={{ maxWidth: "1180px", margin: "0 auto" }}>
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "1rem", marginBottom: "1.5rem" }}>
         <div>
-          <span className="kicker">Catalog Inventory</span>
-          <h1>Original Paintings</h1>
+          <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--gold-antique)", fontWeight: 700 }}>
+            CATALOG INVENTORY
+          </span>
+          <h1 style={{ fontSize: "2.8rem", color: "var(--text-ivory)", margin: "0.25rem 0 0.75rem 0", fontFamily: "var(--font-serif)" }}>
+            Original Paintings
+          </h1>
         </div>
         <button onClick={() => setEditing("new")} className="btn">
           + Add New Painting
@@ -48,23 +52,23 @@ export default function AdminPaintings() {
         emptyText="No paintings currently in database. Add the first one."
       >
         {(d) => (
-          <ul className="plain" style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {d.paintings.map((p) => (
-              <li key={p._id} className="card" style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start", flexWrap: "wrap" }}>
+              <li key={p._id} className="panel-cream" style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start", flexWrap: "wrap" }}>
                 <Img
                   src={p.imageUrl}
                   alt={p.title}
-                  style={{ width: "120px", height: "90px", objectFit: "cover", borderRadius: "var(--radius-sm)" }}
+                  style={{ width: "120px", height: "90px", objectFit: "cover", borderRadius: "var(--radius-media)", flexShrink: 0 }}
                 />
                 <div style={{ flex: 1, minWidth: "260px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: "0.5rem" }}>
                     <h3 style={{ margin: "0 0 0.25rem 0" }}>{p.title}</h3>
                     <Badge status={p.status} />
                   </div>
-                  <p className="muted" style={{ margin: "0.25rem 0 0.75rem 0", fontSize: "0.9rem" }}>
+                  <p style={{ margin: "0.25rem 0 0.75rem 0", fontSize: "0.9rem", color: "var(--text-dark-muted)" }}>
                     {p.artist} · {p.style} · <strong>{money(p.price)}</strong>
                   </p>
-                  <div className="row" style={{ margin: 0 }}>
+                  <div style={{ display: "flex", gap: "0.5rem", alignItems: "center" }}>
                     <button
                       className="secondary"
                       disabled={p.status !== "available"}
@@ -74,7 +78,7 @@ export default function AdminPaintings() {
                       {editing === p._id ? "Close Editor" : "Edit Details"}
                     </button>
                     {p.status !== "available" && (
-                      <small className="muted">Sold paintings are archived and immutable.</small>
+                      <small style={{ color: "var(--text-dark-muted)" }}>Sold paintings are archived and immutable.</small>
                     )}
                   </div>
                 </div>
@@ -132,7 +136,7 @@ function PaintingForm({ painting, onDone, onClose }) {
 
   const d = error?.details ?? {};
   return (
-    <form onSubmit={submit} className="card" style={{ background: "var(--surface-warm)" }}>
+    <form onSubmit={submit} className="panel-cream" style={{ background: "var(--surface-cream-alt)" }}>
       <h3>{painting ? `Edit “${painting.title}”` : "Add New Artwork"}</h3>
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: "1rem" }}>
         <Field label="Artwork Title" error={d.title}>
@@ -159,7 +163,7 @@ function PaintingForm({ painting, onDone, onClose }) {
 
       <FormError error={error} />
 
-      <div className="row" style={{ marginTop: "1rem" }}>
+      <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
         <button className="btn">Save Artwork</button>
         <button type="button" className="secondary" onClick={onClose}>
           Cancel

@@ -11,7 +11,7 @@ function PasswordField({ label, value, onChange, error, required, minLength, max
   return (
     <div className="field">
       <span>{label}</span>
-      <div className="input-with-action">
+      <div style={{ position: "relative", display: "flex", alignItems: "center" }}>
         <input
           type={show ? "text" : "password"}
           value={value}
@@ -20,22 +20,32 @@ function PasswordField({ label, value, onChange, error, required, minLength, max
           minLength={minLength}
           maxLength={maxLength}
           autoComplete={autoComplete}
+          style={{ paddingRight: "2.75rem" }}
         />
         <button
           type="button"
-          className="field-action-btn"
           onClick={() => setShow(!show)}
           aria-label={show ? "Hide password" : "Show password"}
           title={show ? "Hide password" : "Show password"}
+          style={{
+            position: "absolute",
+            right: "0.5rem",
+            background: "transparent",
+            border: "none",
+            color: "var(--text-dark-subtle)",
+            cursor: "pointer",
+            padding: "0.35rem",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
         >
           {show ? (
-            // Eye Off / Struck SVG
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
               <line x1="1" y1="1" x2="23" y2="23" />
             </svg>
           ) : (
-            // Eye SVG
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
               <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
               <circle cx="12" cy="12" r="3" />
@@ -74,18 +84,22 @@ function AuthForm({ mode }) {
   }
 
   return (
-    <div style={{ maxWidth: "460px", margin: "2.5rem auto" }}>
+    <div style={{ maxWidth: "460px", margin: "3rem auto" }}>
       <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
         <img
           src="/images/logo-emblem-transparent.png"
           alt="KĀLORA Emblem"
-          style={{ height: "48px", margin: "0 auto 0.5rem" }}
+          style={{ height: "52px", margin: "0 auto 0.5rem" }}
         />
-        <span className="kicker">KĀLORA ATELIER</span>
-        <h2 style={{ margin: 0 }}>{signup ? "Create Collector Account" : "Sign In to Studio"}</h2>
+        <span style={{ fontSize: "0.75rem", textTransform: "uppercase", letterSpacing: "0.18em", color: "var(--gold-antique)", fontWeight: 700 }}>
+          KĀLORA ATELIER
+        </span>
+        <h2 style={{ margin: "0.25rem 0 0 0", color: "var(--text-ivory)", fontFamily: "var(--font-serif)", fontSize: "2rem" }}>
+          {signup ? "Create Collector Account" : "Sign In to Studio"}
+        </h2>
       </div>
 
-      <form onSubmit={submit} className="card narrow" style={{ margin: 0 }}>
+      <form onSubmit={submit} className="panel-cream" style={{ borderTop: "4px solid var(--terracotta)" }}>
         {signup && (
           <Field label="Full Name" error={error?.details?.name}>
             <input
@@ -94,7 +108,7 @@ function AuthForm({ mode }) {
               required
               maxLength={80}
               autoComplete="name"
-              placeholder="e.g. Arjun Verma"
+              placeholder="e.g. Dinesh Sharma"
             />
           </Field>
         )}
@@ -127,18 +141,18 @@ function AuthForm({ mode }) {
           {busy ? "Authenticating…" : signup ? "Register Collector Account" : "Sign In"}
         </button>
 
-        <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.9rem", color: "var(--text-muted)" }}>
+        <div style={{ textAlign: "center", marginTop: "1.5rem", fontSize: "0.9rem", color: "var(--text-dark-muted)" }}>
           {signup ? (
-            <p>
-              Already part of the atelier?{" "}
-              <Link to="/login" style={{ fontWeight: 600 }}>
+            <p style={{ margin: 0 }}>
+              Already registered with KĀLORA?{" "}
+              <Link to="/login" style={{ fontWeight: 600, color: "var(--terracotta)" }}>
                 Sign in here
               </Link>
             </p>
           ) : (
-            <p>
+            <p style={{ margin: 0 }}>
               New to KĀLORA?{" "}
-              <Link to="/signup" style={{ fontWeight: 600 }}>
+              <Link to="/signup" style={{ fontWeight: 600, color: "var(--terracotta)" }}>
                 Create an account
               </Link>
             </p>

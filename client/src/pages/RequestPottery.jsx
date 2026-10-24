@@ -15,7 +15,7 @@ const POTTERY_IMAGES = {
   "i-05": "/images/pottery-gamla.jpg",
 };
 
-// Glaze mineral swatch palette
+// Traditional mineral glaze palette
 const GLAZE_COLORS = {
   "g-01": "#9B2226", // Kumkum Red
   "g-02": "#E9A036", // Haldi Yellow
@@ -52,10 +52,12 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
   }
 
   return (
-    <form onSubmit={submit} className="card" style={{ padding: "2rem" }}>
-      {/* 1. Visual Pottery Item Selector */}
+    <form onSubmit={submit} className="panel-cream">
+      {/* 1. Visual Ceramic Item Selector */}
       <div className="field">
-        <span style={{ fontSize: "1rem", fontWeight: 700 }}>1. Select Ceramic Form</span>
+        <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-dark-title)" }}>
+          1. Select Clay Pottery Form
+        </span>
         <div className="pottery-grid-selector" role="radiogroup" aria-label="Pottery Items">
           {options.items.map((i) => {
             const isSelected = form.itemId === i.id;
@@ -75,15 +77,15 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
                 />
                 <div>
                   <h4 className="pottery-option-title">{i.name}</h4>
-                  <small className="muted" style={{ display: "block", marginTop: "2px" }}>
-                    {i.id === "i-04" ? "Box of 4 handmade diyas" : "Hand-thrown studio clay"}
+                  <small style={{ color: "var(--text-dark-muted)", display: "block", marginTop: "2px" }}>
+                    {i.id === "i-04" ? "Set of 4 hand-carved diyas" : "Wheel-thrown earthenware"}
                   </small>
                 </div>
               </button>
             );
           })}
         </div>
-        {/* Hidden select for fallback / form validation */}
+        {/* Hidden select for standard form semantics */}
         <select
           value={form.itemId}
           onChange={set("itemId")}
@@ -101,7 +103,9 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
 
       {/* 2. Visual Mineral Glaze Selector */}
       <div className="field">
-        <span style={{ fontSize: "1rem", fontWeight: 700 }}>2. Select Mineral Glaze</span>
+        <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-dark-title)" }}>
+          2. Select Natural Mineral Glaze
+        </span>
         <div className="glaze-swatches-row" role="radiogroup" aria-label="Glaze Finishes">
           {options.glazes.map((g) => {
             const isSelected = form.glazeId === g.id;
@@ -123,7 +127,6 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
             );
           })}
         </div>
-        {/* Hidden select for fallback / validation */}
         <select
           value={form.glazeId}
           onChange={set("glazeId")}
@@ -153,7 +156,7 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
       {/* 3. Quantity & Date */}
       <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(220px, 1fr))", gap: "1.25rem", margin: "1rem 0" }}>
         <Field
-          label={isDiyaSet ? `Quantity of Sets (${cfg.limits.quantityMin}–${cfg.limits.quantityMax})` : `Quantity (${cfg.limits.quantityMin}–${cfg.limits.quantityMax})`}
+          label={isDiyaSet ? `Quantity of Sets (${cfg.limits.quantityMin}–${cfg.limits.quantityMax})` : `Quantity of Pieces (${cfg.limits.quantityMin}–${cfg.limits.quantityMax})`}
           error={error?.details?.quantity}
         >
           <input
@@ -180,7 +183,7 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
 
       <FormError error={error} />
 
-      <div className="row" style={{ marginTop: "1.5rem" }}>
+      <div style={{ display: "flex", gap: "0.75rem", marginTop: "1.5rem" }}>
         <button disabled={busy} className="btn">
           {busy ? "Submitting request…" : submitLabel}
         </button>
@@ -206,16 +209,22 @@ export default function RequestPottery() {
 
   return (
     <div style={{ maxWidth: "900px", margin: "0 auto" }}>
-      <span className="kicker">Studio Atelier</span>
-      <h1>Custom Pottery & Ceramics</h1>
-      <p className="lead-text" style={{ marginBottom: "2rem" }}>
-        Commission wheel-thrown tableware, planters, and festival essentials handcrafted by our studio potters.
-        Every piece is made to order with traditional mineral glazes. Because studio ceramics are made by hand, our team reviews each inquiry and confirms tailored pricing with you personally.
+      <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--gold-antique)", fontWeight: 700 }}>
+        POTTERY STUDIO · JAIPUR ATELIER
+      </span>
+      <h1 style={{ fontSize: "2.8rem", color: "var(--text-ivory)", margin: "0.25rem 0 0.75rem 0", fontFamily: "var(--font-serif)" }}>
+        Handcrafted Clay Pottery
+      </h1>
+      <p style={{ color: "var(--text-sage)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: "2rem" }}>
+        Commission authentic hand-thrown clay pottery crafted from natural earth by our studio potters.
+        Every piece is thrown on the wheel and finished with traditional mineral glazes. Because clay pottery is made by hand in limited batches, our atelier reviews each inquiry personally and confirms pricing with you directly.
       </p>
 
       {done ? (
-        <div className="ok" role="status">
-          <h3>Your Pottery Request Has Been Received!</h3>
+        <div className="panel-cream" role="status">
+          <h3 style={{ color: "var(--status-available-text)", marginTop: 0 }}>
+            Clay Pottery Request Received
+          </h3>
           <p>
             Our master potter will inspect your specifications, verify kiln availability, and update your inquiry.
           </p>
@@ -227,7 +236,7 @@ export default function RequestPottery() {
         <AsyncState
           state={data}
           isEmpty={(d) => d.options.items.length === 0}
-          emptyText="No pottery items are currently open for commission."
+          emptyText="No clay pottery items are currently open for inquiry."
         >
           {({ options, cfg }) => (
             <PotteryForm

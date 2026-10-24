@@ -13,18 +13,22 @@ export default function MyActivity() {
   const [tab, setTab] = useState("orders");
 
   return (
-    <div style={{ maxWidth: "960px", margin: "0 auto" }}>
-      <span className="kicker">Collector Portal</span>
-      <h1>My Studio Activity</h1>
-      <p className="lead-text" style={{ marginBottom: "2rem" }}>
-        Track your fine art acquisitions, commissioned wall murals, and artisanal pottery orders with full provenance and history.
+    <div style={{ maxWidth: "1080px", margin: "0 auto" }}>
+      <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--gold-antique)", fontWeight: 700 }}>
+        COLLECTOR PORTAL
+      </span>
+      <h1 style={{ fontSize: "2.8rem", color: "var(--text-ivory)", margin: "0.25rem 0 0.75rem 0", fontFamily: "var(--font-serif)" }}>
+        My Studio Activity
+      </h1>
+      <p style={{ color: "var(--text-sage)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: "2rem" }}>
+        Track your original painting acquisitions, custom wall mural dates, and clay pottery requests with verified provenance and history.
       </p>
 
       <nav className="tabs-nav" role="tablist" aria-label="Activity Categories">
         {[
           { key: "orders", label: "Painting Orders" },
           { key: "bookings", label: "Wall Murals" },
-          { key: "pottery", label: "Pottery Requests" },
+          { key: "pottery", label: "Clay Pottery Requests" },
         ].map(({ key, label }) => (
           <button
             key={key}
@@ -94,26 +98,26 @@ function Orders() {
         emptyText="You have not acquired any original paintings yet. Explore our curated gallery collection."
       >
         {(d) => (
-          <ul className="plain">
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {d.orders.map((o) => (
-              <li key={o._id} className="activity-card">
+              <li key={o._id} className="panel-cream" style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start", flexWrap: "wrap" }}>
                 <Img
                   src={o.painting?.imageUrl}
                   alt={o.painting?.title ?? "Painting"}
-                  className="activity-thumb"
+                  style={{ width: "120px", height: "90px", objectFit: "cover", borderRadius: "var(--radius-media)", flexShrink: 0 }}
                 />
-                <div className="activity-content">
+                <div style={{ flex: 1, minWidth: "260px" }}>
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", flexWrap: "wrap", gap: "0.5rem" }}>
                     <div>
                       <h3 style={{ margin: "0 0 0.25rem 0" }}>
                         <Link to={`/paintings/${o.painting?._id}`}>{o.painting?.title}</Link>
                       </h3>
-                      <span className="muted" style={{ fontSize: "0.85rem" }}>
+                      <span style={{ color: "var(--text-dark-muted)", fontSize: "0.85rem" }}>
                         {o.painting?.artist} · {o.painting?.style}
                       </span>
                     </div>
                     <div style={{ textAlign: "right" }}>
-                      <strong style={{ fontSize: "1.15rem", display: "block" }}>{money(o.priceAtPurchase)}</strong>
+                      <strong style={{ fontSize: "1.2rem", display: "block" }}>{money(o.priceAtPurchase)}</strong>
                       <Badge status={o.status} />
                     </div>
                   </div>
@@ -130,7 +134,7 @@ function Orders() {
                       Cancel Order
                     </button>
                     {o.status !== "placed" && (
-                      <small className="muted" style={{ marginLeft: "0.75rem" }}>
+                      <small style={{ marginLeft: "0.75rem", color: "var(--text-dark-muted)" }}>
                         Order is {o.status}; cancellations are only accepted while placed.
                       </small>
                     )}
@@ -156,29 +160,29 @@ function Bookings() {
       <AsyncState
         state={state}
         isEmpty={(d) => d.bookings.length === 0}
-        emptyText="You have no mural commissions booked yet. Choose a date on our architectural mural calendar."
+        emptyText="You have no wall bookings yet. Choose a date on our architectural mural calendar."
       >
         {(d) => (
-          <ul className="plain">
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {d.bookings.map((b) => {
               const open = ["requested", "confirmed"].includes(b.status);
               return (
-                <li key={b._id} className="card" style={{ marginBottom: "1.5rem" }}>
+                <li key={b._id} className="panel-cream">
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "0.5rem" }}>
-                    <h3>Mural Date: {niceDate(b.date)}</h3>
+                    <h3 style={{ margin: "0 0 0.5rem 0" }}>Mural Date: {niceDate(b.date)}</h3>
                     <Badge status={b.status} />
                   </div>
 
-                  <p className="lead-text" style={{ fontSize: "1rem", margin: "0.5rem 0" }}>
-                    <strong>{money(b.price)}</strong> ({b.wallSqFt} sq ft at {money(b.ratePerSqFt)}/sq ft)
+                  <p style={{ fontSize: "1.05rem", margin: "0.25rem 0", fontWeight: 600 }}>
+                    {money(b.price)} ({b.wallSqFt} sq ft × {money(b.ratePerSqFt)}/sq ft)
                   </p>
-                  <p className="muted" style={{ fontSize: "0.9rem" }}>
+                  <p style={{ color: "var(--text-dark-muted)", fontSize: "0.9rem", margin: "0 0 0.75rem 0" }}>
                     <strong>Site Location:</strong> {b.address}
                   </p>
 
                   <Timeline history={b.history} />
 
-                  <div style={{ marginTop: "1rem", paddingTop: "0.75rem", borderTop: "1px solid var(--border-light)" }}>
+                  <div style={{ marginTop: "1rem", paddingTop: "0.75rem", borderTop: "1px solid var(--border-cream)" }}>
                     <button
                       className="secondary"
                       disabled={!b.canCancel}
@@ -188,7 +192,7 @@ function Bookings() {
                       Cancel Booking
                     </button>
                     {open && !b.canCancel && (
-                      <span className="muted" style={{ display: "block", marginTop: "0.5rem", fontSize: "0.85rem" }}>
+                      <span style={{ display: "block", marginTop: "0.5rem", fontSize: "0.85rem", color: "var(--text-dark-muted)" }}>
                         ⓘ Cancellation policy: Reservations may only be cancelled up to 3 days prior ({niceDate(b.cancelCutoff)}).
                       </span>
                     )}
@@ -222,26 +226,26 @@ function Pottery() {
       <AsyncState
         state={state}
         isEmpty={(d) => d.requests.length === 0}
-        emptyText="You have no custom pottery inquiries currently. Commission a wheel-thrown ceramic piece."
+        emptyText="You have no clay pottery requests yet. Commission hand-thrown earthenware."
       >
         {(d) => (
-          <ul className="plain">
+          <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "1.5rem" }}>
             {d.requests.map((r) => (
-              <li key={r._id} className="card" style={{ marginBottom: "1.5rem" }}>
+              <li key={r._id} className="panel-cream">
                 <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", flexWrap: "wrap", gap: "0.5rem" }}>
-                  <h3>
+                  <h3 style={{ margin: "0 0 0.5rem 0" }}>
                     {r.quantity} × {r.itemName} ({r.glazeName} Glaze)
                   </h3>
                   <Badge status={r.status} />
                 </div>
 
-                <p className="muted" style={{ margin: "0.5rem 0" }}>
+                <p style={{ color: "var(--text-dark-muted)", margin: "0 0 0.75rem 0" }}>
                   Needed by <strong>{niceDate(r.neededBy)}</strong>
                 </p>
 
                 <Timeline history={r.history} />
 
-                <div className="row" style={{ marginTop: "1rem" }}>
+                <div style={{ display: "flex", gap: "0.75rem", marginTop: "1rem" }}>
                   <button
                     className="secondary"
                     disabled={r.status !== "requested"}
@@ -261,7 +265,7 @@ function Pottery() {
                 </div>
 
                 {r.status !== "requested" && (
-                  <small className="muted" style={{ display: "block", marginTop: "0.5rem" }}>
+                  <small style={{ display: "block", marginTop: "0.5rem", color: "var(--text-dark-muted)" }}>
                     Requests are locked once reviewed and accepted by the studio.
                   </small>
                 )}

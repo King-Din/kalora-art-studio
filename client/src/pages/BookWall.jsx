@@ -11,12 +11,16 @@ const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 export default function BookWall() {
   const config = useAsync(() => api("/config"), []);
   return (
-    <div style={{ maxWidth: "860px", margin: "0 auto" }}>
-      <span className="kicker">Architectural Murals</span>
-      <h1>Commission a Wall Mural</h1>
-      <p className="lead-text">
-        Transform living rooms, courtyards, boutique hotels, or studio spaces with bespoke site-specific Indian murals.
-        Hand-painted by master artisans using enduring archival mineral paints.
+    <div style={{ maxWidth: "880px", margin: "0 auto" }}>
+      <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.16em", color: "var(--gold-antique)", fontWeight: 700 }}>
+        BESPOKE SPACES · SITE-SPECIFIC MURALS
+      </span>
+      <h1 style={{ fontSize: "2.8rem", color: "var(--text-ivory)", margin: "0.25rem 0 0.75rem 0", fontFamily: "var(--font-serif)" }}>
+        Commission a Wall Mural
+      </h1>
+      <p style={{ color: "var(--text-sage)", fontSize: "1.05rem", lineHeight: 1.6, marginBottom: "2rem" }}>
+        Transform residences, heritage courtyards, or contemporary studios with custom Indian murals.
+        Hand-painted on-site by master artisans using archival mineral pigments.
       </p>
       <AsyncState state={config}>{(cfg) => <BookingForm cfg={cfg} />}</AsyncState>
     </div>
@@ -83,17 +87,17 @@ function BookingForm({ cfg }) {
 
   if (done) {
     return (
-      <div className="ok" role="status" style={{ padding: "2rem", marginTop: "2rem" }}>
-        <h3 style={{ margin: "0 0 0.5rem 0", color: "var(--status-available-text)" }}>
-          Mural Commission Request Submitted
+      <div className="panel-cream" role="status">
+        <h3 style={{ color: "var(--status-available-text)", marginTop: 0 }}>
+          Wall Mural Commission Scheduled
         </h3>
         <p>
           Your requested date of <strong>{niceDate(done.date)}</strong> has been recorded.
           <br />
-          Estimated investment: <strong>{money(done.price)}</strong> ({done.wallSqFt} sq ft at {money(done.ratePerSqFt)}/sq ft).
+          Estimated investment: <strong>{money(done.price)}</strong> ({done.wallSqFt} sq ft × {money(done.ratePerSqFt)}/sq ft).
         </p>
-        <p className="muted" style={{ fontSize: "0.9rem" }}>
-          Free cancellation is available until {niceDate(done.cancelCutoff)} (3 days before start).
+        <p style={{ color: "var(--text-dark-muted)", fontSize: "0.9rem" }}>
+          Free cancellation is available until {niceDate(done.cancelCutoff)} (3 days prior).
         </p>
         <Link to="/activity" className="btn secondary" style={{ marginTop: "1rem" }}>
           Track Status in My Activity
@@ -103,11 +107,11 @@ function BookingForm({ cfg }) {
   }
 
   return (
-    <form onSubmit={submit} className="card" style={{ padding: "2.25rem", marginTop: "1.5rem" }}>
+    <form onSubmit={submit} className="panel-cream">
       {/* Policy banner */}
-      <div style={{ background: "var(--surface-warm)", padding: "1rem 1.25rem", borderRadius: "var(--radius-sm)", marginBottom: "1.75rem", border: "1px solid var(--border-cream)" }}>
-        <h4 style={{ margin: "0 0 0.25rem 0", fontSize: "0.95rem" }}>Studio Commission Guidelines</h4>
-        <p className="muted" style={{ margin: 0, fontSize: "0.88rem" }}>
+      <div style={{ background: "var(--surface-cream-alt)", padding: "1rem 1.25rem", borderRadius: "var(--radius-btn)", marginBottom: "1.75rem", border: "1px solid var(--border-cream)" }}>
+        <h4 style={{ margin: "0 0 0.35rem 0", fontSize: "0.95rem" }}>Studio Commission Guidelines</h4>
+        <p style={{ margin: 0, fontSize: "0.88rem", color: "var(--text-dark-muted)", lineHeight: 1.6 }}>
           • Fixed studio rate: <strong>{money(muralRatePerSqFt)} / sq ft</strong>.
           <br />
           • Advance booking window: <strong>{limits.bookingMinDays} to {limits.bookingMaxDays} days</strong> ahead ({niceDate(first)} – {niceDate(last)}).
@@ -120,7 +124,7 @@ function BookingForm({ cfg }) {
       <AsyncState state={availability}>
         {() => (
           <fieldset style={{ border: "none", padding: 0, margin: "0 0 1.5rem 0" }}>
-            <legend style={{ fontSize: "1rem", fontWeight: 700, marginBottom: "0.5rem" }}>
+            <legend style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-dark-title)", marginBottom: "0.5rem" }}>
               1. Select Mural Date
             </legend>
             <div className="cal-grid" role="group" aria-label="Available studio dates">
@@ -150,17 +154,17 @@ function BookingForm({ cfg }) {
                 );
               })}
             </div>
-            <div className="cal-legend">
-              <div className="cal-legend-item">
-                <span className="cal-legend-dot" style={{ background: "var(--surface-cream)", border: "1px solid var(--border-cream)" }} />
+            <div style={{ display: "flex", gap: "1.25rem", fontSize: "0.8rem", color: "var(--text-dark-muted)", marginTop: "0.5rem" }}>
+              <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <span style={{ width: "10px", height: "10px", background: "#FFFFFF", border: "1px solid var(--border-cream)", borderRadius: "2px" }} />
                 <span>Available</span>
               </div>
-              <div className="cal-legend-item">
-                <span className="cal-legend-dot" style={{ background: "var(--terracotta)" }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <span style={{ width: "10px", height: "10px", background: "var(--terracotta)", borderRadius: "2px" }} />
                 <span>Selected</span>
               </div>
-              <div className="cal-legend-item">
-                <span className="cal-legend-dot" style={{ background: "#EFE9DE", textDecoration: "line-through" }} />
+              <div style={{ display: "flex", alignItems: "center", gap: "0.4rem" }}>
+                <span style={{ width: "10px", height: "10px", background: "#EAE2D4", borderRadius: "2px" }} />
                 <span>Booked</span>
               </div>
             </div>
@@ -168,13 +172,13 @@ function BookingForm({ cfg }) {
         )}
       </AsyncState>
 
-      <p aria-live="polite" style={{ fontSize: "0.95rem", fontWeight: 600, color: date ? "var(--terracotta)" : "var(--text-subtle)", marginBottom: "1.5rem" }}>
+      <p aria-live="polite" style={{ fontSize: "0.95rem", fontWeight: 700, color: date ? "var(--terracotta)" : "var(--text-dark-subtle)", margin: "0 0 1.5rem 0" }}>
         {date ? `✦ Selected Date: ${niceDate(date)}` : "Please choose an open date on the calendar above."}
       </p>
 
-      {/* Dimensions & Address */}
+      {/* Wall area */}
       <Field
-        label={`2. Wall Area (Square Feet, ${limits.wallMinSqFt}–${limits.wallMaxSqFt} sq ft)`}
+        label={`2. Wall Surface Area (Square Feet, ${limits.wallMinSqFt}–${limits.wallMaxSqFt} sq ft)`}
         error={error?.details?.wallSqFt}
       >
         <input
@@ -193,14 +197,14 @@ function BookingForm({ cfg }) {
       {/* Real-time calculated price estimate */}
       {estimate !== null && (
         <div className="live-estimate-box" aria-live="polite">
-          <span style={{ fontSize: "0.78rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-subtle)", display: "block" }}>
+          <span style={{ fontSize: "0.72rem", textTransform: "uppercase", letterSpacing: "0.08em", color: "var(--text-dark-subtle)", display: "block" }}>
             Estimated Investment
           </span>
-          <strong style={{ fontSize: "1.6rem", color: "var(--text-main)" }}>
+          <strong style={{ fontSize: "1.7rem", color: "var(--text-dark-title)" }}>
             {money(estimate)}
           </strong>
-          <span className="muted" style={{ display: "block", fontSize: "0.85rem", marginTop: "2px" }}>
-            Calculation: {sqft} sq ft × {money(muralRatePerSqFt)} / sq ft (verified and locked by server on confirmation).
+          <span style={{ display: "block", fontSize: "0.85rem", color: "var(--text-dark-muted)", marginTop: "2px" }}>
+            {sqft} sq ft × {money(muralRatePerSqFt)} / sq ft (verified and locked by server on confirmation).
           </span>
         </div>
       )}
@@ -210,7 +214,7 @@ function BookingForm({ cfg }) {
           value={address}
           onChange={(e) => setAddress(e.target.value)}
           maxLength={limits.addressMax}
-          placeholder="Include city, street address, wall dimensions or indoor/outdoor surface type..."
+          placeholder="City, street address, wall dimensions or indoor/outdoor surface type..."
           required
           rows={3}
         />
@@ -225,7 +229,7 @@ function BookingForm({ cfg }) {
           <p style={{ margin: "0 0 0.5rem 0" }}>
             <strong>The selected date was just reserved.</strong> Recommended nearest available dates:
           </p>
-          <div className="row" style={{ margin: 0 }}>
+          <div style={{ display: "flex", gap: "0.5rem", flexWrap: "wrap" }}>
             {suggestions.map((s) => (
               <button
                 type="button"

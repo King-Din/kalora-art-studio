@@ -40,14 +40,17 @@ export default function BuyButton({ painting, onChanged }) {
   }
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <button
         onClick={buy}
         disabled={sold || busy || message?.ok}
-        className={sold ? "secondary" : "btn"}
-        style={{ width: "100%", justifyContent: "center" }}
+        className="btn-acquire"
       >
-        {sold ? "Archived / Sold" : busy ? "Securing Canvas…" : `Acquire Original · ${money(painting.price)}`}
+        {sold
+          ? "Archived / Sold"
+          : busy
+          ? "Securing Canvas…"
+          : `Acquire Original - ${money(painting.price)} →`}
       </button>
 
       <div aria-live="polite">
@@ -55,23 +58,23 @@ export default function BuyButton({ painting, onChanged }) {
           <p
             className={message.ok ? "ok" : "alert"}
             role={message.ok ? "status" : "alert"}
-            style={{ fontSize: "0.88rem", marginTop: "0.75rem" }}
+            style={{ fontSize: "0.82rem", margin: "0.5rem 0 0 0", padding: "0.5rem 0.75rem" }}
           >
             {message.text}
           </p>
         )}
         {alternatives.length > 0 && (
-          <div style={{ marginTop: "0.75rem", background: "var(--surface-warm)", padding: "0.75rem", borderRadius: "var(--radius-sm)", border: "1px solid var(--border-cream)" }}>
-            <span style={{ fontSize: "0.8rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--terracotta)", display: "block", marginBottom: "0.35rem" }}>
+          <div style={{ marginTop: "0.5rem", background: "#FFFFFF", padding: "0.6rem 0.75rem", borderRadius: "6px", border: "1px solid var(--border-cream)" }}>
+            <span style={{ fontSize: "0.72rem", fontWeight: 700, textTransform: "uppercase", letterSpacing: "0.06em", color: "var(--terracotta)", display: "block", marginBottom: "0.25rem" }}>
               Suggested Alternative Works:
             </span>
-            <ul className="plain" style={{ display: "flex", flexDirection: "column", gap: "0.35rem" }}>
+            <ul style={{ listStyle: "none", padding: 0, margin: 0, display: "flex", flexDirection: "column", gap: "0.25rem" }}>
               {alternatives.map((a) => (
-                <li key={a._id} style={{ fontSize: "0.85rem" }}>
-                  <Link to={`/paintings/${a._id}`} style={{ fontWeight: 600 }}>
+                <li key={a._id} style={{ fontSize: "0.82rem" }}>
+                  <Link to={`/paintings/${a._id}`} style={{ fontWeight: 600, color: "var(--text-dark-title)" }}>
                     {a.title}
                   </Link>{" "}
-                  <span className="muted">· {a.style} · {money(a.price)}</span>
+                  <span style={{ color: "var(--text-dark-muted)" }}>· {money(a.price)}</span>
                 </li>
               ))}
             </ul>

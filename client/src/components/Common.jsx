@@ -31,10 +31,10 @@ export function Timeline({ history = [] }) {
         <li key={i}>
           <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", flexWrap: "wrap" }}>
             <Badge status={h.status} />
-            <strong>{h.role}</strong>
-            <span>·</span>
-            <time>{niceTime(h.at)}</time>
-            {h.note && <span>· <em>“{h.note}”</em></span>}
+            <strong style={{ color: "var(--text-dark-title)" }}>{h.role}</strong>
+            <span style={{ color: "var(--text-dark-subtle)" }}>·</span>
+            <time style={{ color: "var(--text-dark-muted)" }}>{niceTime(h.at)}</time>
+            {h.note && <span style={{ color: "var(--text-dark-muted)" }}>· <em>“{h.note}”</em></span>}
           </div>
         </li>
       ))}
@@ -45,7 +45,7 @@ export function Timeline({ history = [] }) {
 export const PLACEHOLDER =
   "data:image/svg+xml;utf8," +
   encodeURIComponent(
-    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="100%" height="100%" fill="#F4ECE0"/><text x="50%" y="45%" text-anchor="middle" fill="#B95735" font-family="serif" font-size="22" font-style="italic">KĀLORA</text><text x="50%" y="60%" text-anchor="middle" fill="#8E7E73" font-family="sans-serif" font-size="13">Artisan Studio Piece</text></svg>'
+    '<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><rect width="100%" height="100%" fill="#E8DDCB"/><text x="50%" y="45%" text-anchor="middle" fill="#A94E2D" font-family="serif" font-size="22" font-style="italic">KĀLORA</text><text x="50%" y="60%" text-anchor="middle" fill="#7D8B82" font-family="sans-serif" font-size="13">Artisan Studio Piece</text></svg>'
   );
 
 export const Img = ({ src, alt, ...rest }) => (
