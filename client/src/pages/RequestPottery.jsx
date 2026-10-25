@@ -53,7 +53,7 @@ export function PotteryForm({ options, cfg, initial, submitLabel, onSubmit, onCa
 
   return (
     <form onSubmit={submit} className="panel-cream">
-      {/* 1. Visual Ceramic Item Selector */}
+      {/* 1. Visual Clay Pottery Form Selector */}
       <div className="field">
         <span style={{ fontSize: "1rem", fontWeight: 700, color: "var(--text-dark-title)" }}>
           1. Select Clay Pottery Form
