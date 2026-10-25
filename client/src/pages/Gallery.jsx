@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { api } from "../api/client.js";
 import { money } from "../api/format.js";
 import { useAuth } from "../auth.jsx";
@@ -11,6 +11,7 @@ import heroMasterImg from "../assets/hero-card-master.png";
 
 export default function Gallery() {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [filters, setFilters] = useState({ q: "", style: "", available: "", sort: "newest" });
   const set = (k) => (e) =>
     setFilters({
@@ -23,13 +24,7 @@ export default function Gallery() {
     refetchOnFocus: true,
   });
   const all = useAsync(() => api("/paintings"), []); // for the style dropdown and live count
-  const config = useAsync(() => api("/config"), []); // backend studio configuration (mural rate, currency)
-  const potteryOpts = useAsync(() => api("/pottery/options"), []); // backend pottery options and clay items
-
   const styles = [...new Set((all.data?.paintings ?? []).map((p) => p.style).filter(Boolean))].sort();
-  const availableCount = (all.data?.paintings ?? []).filter((p) => p.status === "available").length;
-  const muralRate = config.data?.muralRatePerSqFt ?? 150;
-  const potteryCount = potteryOpts.data?.items?.length ?? 5;
 
   // Backend role-aligned navigation routes
   const isStudio = user?.role === "studio";
@@ -37,10 +32,22 @@ export default function Gallery() {
   const potteryLink = isStudio ? "/admin/pottery" : user ? "/pottery" : "/login?redirect=/pottery";
   const paintingsLink = isStudio ? "/admin/paintings" : "#collection";
 
+  const scrollToCollection = (e) => {
+    if (e) e.preventDefault();
+    if (isStudio) {
+      navigate("/admin/paintings");
+      return;
+    }
+    const el = document.getElementById("collection");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
+
   return (
     <div>
       {/* ====================================================================
-          HERO SECTION (Matching "hero reference.png" with 100% fidelity & backend alignment)
+          HERO SECTION (Matching "hero reference.png" with 100% fidelity & full interactivity)
           ==================================================================== */}
       <section className="hero-master-card" aria-label="KĀLORA Atelier">
         {/* Visual master art-directed scene from hero reference.png with Custom Pottery */}
@@ -50,13 +57,14 @@ export default function Gallery() {
           className="hero-master-img"
         />
 
-        {/* Interactive pixel-matched hotspot overlays aligned with backend routes */}
+        {/* Interactive pixel-matched hotspot overlays with clear hover and active click response */}
         <div className="hero-interactive-overlay">
           {/* Button 1: Explore Collection */}
-          <a
-            href={paintingsLink}
+          <button
+            type="button"
+            onClick={scrollToCollection}
             className="hero-hotspot hero-hotspot-b1"
-            title="Explore Collection"
+            title="Explore Collection → View Available Original Canvases"
             aria-label="Explore Collection"
           />
 
@@ -64,23 +72,24 @@ export default function Gallery() {
           <Link
             to={muralLink}
             className="hero-hotspot hero-hotspot-b2"
-            title={isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}
-            aria-label={isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}
+            title={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural (₹150/sq ft)"}
+            aria-label={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural"}
           />
 
           {/* Button 3: Custom Pottery */}
           <Link
             to={potteryLink}
             className="hero-hotspot hero-hotspot-b3"
-            title={isStudio ? "Manage Pottery Requests" : "Custom Pottery Studio"}
-            aria-label={isStudio ? "Manage Pottery Requests" : "Custom Pottery Studio"}
+            title={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery → Customize Hand-Thrown Clay Pieces"}
+            aria-label={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery Studio"}
           />
 
           {/* Pillar 1: Original Canvases */}
-          <a
-            href={paintingsLink}
+          <button
+            type="button"
+            onClick={scrollToCollection}
             className="hero-hotspot-pillar hero-hotspot-p1"
-            title="Original Canvases - One-of-a-Kind Art"
+            title="Original Canvases → Browse One-of-a-Kind Art"
             aria-label="Original Canvases - One-of-a-Kind Art"
           />
 
@@ -88,7 +97,7 @@ export default function Gallery() {
           <Link
             to={muralLink}
             className="hero-hotspot-pillar hero-hotspot-p2"
-            title="Bespoke Spaces - Architectural Murals"
+            title={isStudio ? "Bespoke Spaces → Mural Bookings Queue" : "Bespoke Spaces → Architectural Murals at ₹150/sq ft"}
             aria-label="Bespoke Spaces - Architectural Murals"
           />
 
@@ -96,83 +105,11 @@ export default function Gallery() {
           <Link
             to={potteryLink}
             className="hero-hotspot-pillar hero-hotspot-p3"
-            title="Studio Pottery - Handcrafted Clay Pottery"
+            title={isStudio ? "Studio Pottery → Pottery Requests Queue" : "Studio Pottery → Artisanal Handcrafted Clay Pottery"}
             aria-label="Studio Pottery - Handcrafted Clay Pottery"
           />
         </div>
-
-        {/* Accessible Semantic DOM for Screen Readers, Assistive Tech and SEO */}
-        <div className="sr-only">
-          <span className="hero-kicker">✦ HANDCRAFTED IN INDIA · JAIPUR ATELIER</span>
-          <h1 className="hero-heading">Art for Your Spaces</h1>
-          <p className="hero-lead">
-            Immerse yourself in authentic contemporary Indian artistry. From one-of-a-kind original
-            canvases to bespoke architectural wall murals and hand-thrown studio pottery.
-          </p>
-          <div className="hero-cta-group">
-            <a href={paintingsLink}>Explore Collection →</a>
-            <Link to={muralLink}>{isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}</Link>
-            <Link to={potteryLink}>Custom Pottery</Link>
-          </div>
-          <div className="hero-pillars-semantic">
-            <div>
-              <span>ORIGINAL CANVASES</span>
-              <h3>One-of-a-Kind Art</h3>
-              <p>Every painting is a unique original. Once acquired, it is archived forever.</p>
-            </div>
-            <div>
-              <span>BESPOKE SPACES</span>
-              <h3>Architectural Murals</h3>
-              <p>Custom site-specific murals hand-painted at a fixed studio rate of ₹{muralRate}/sq ft.</p>
-            </div>
-            <div>
-              <span>STUDIO POTTERY</span>
-              <h3>Handcrafted Clay Pottery</h3>
-              <p>Wheel-thrown clay tableware and decor finished with custom mineral glazes.</p>
-            </div>
-          </div>
-        </div>
       </section>
-
-      {/* Live Backend Atelier Synchronized Integration Bar */}
-      <div className="hero-backend-sync-bar" role="region" aria-label="Live Atelier Inventory and Offerings">
-        <div className="sync-metric-item">
-          <span className="sync-metric-dot available" />
-          <span className="sync-metric-label">Original Canvases:</span>
-          <strong className="sync-metric-val">
-            {all.loading ? "Connecting…" : `${availableCount} available`}
-          </strong>
-        </div>
-        <div className="sync-metric-sep">·</div>
-        <div className="sync-metric-item">
-          <span className="sync-metric-dot" />
-          <span className="sync-metric-label">Architectural Murals:</span>
-          <strong className="sync-metric-val">
-            {config.loading ? "Loading…" : `₹${muralRate}/sq ft`}
-          </strong>
-        </div>
-        <div className="sync-metric-sep">·</div>
-        <div className="sync-metric-item">
-          <span className="sync-metric-dot" />
-          <span className="sync-metric-label">Custom Pottery:</span>
-          <strong className="sync-metric-val">
-            {potteryOpts.loading ? "Loading…" : `${potteryCount} Handcrafted Clay Forms`}
-          </strong>
-        </div>
-      </div>
-
-      {/* Mobile CTA quick tray (enhanced touch targets on mobile screens) */}
-      <div className="hero-mobile-cta">
-        <a href={paintingsLink} className="btn-hero-primary">
-          Explore Collection →
-        </a>
-        <Link to={muralLink} className="btn-hero-secondary">
-          {isStudio ? "Mural Bookings Queue" : "Commission Wall Mural"}
-        </Link>
-        <Link to={potteryLink} className="btn-hero-secondary">
-          {isStudio ? "Pottery Requests Queue" : "Custom Pottery"}
-        </Link>
-      </div>
 
       {/* ====================================================================
           CATALOG SECTION & FILTER BAR
