@@ -50,45 +50,51 @@ export default function Gallery() {
           HERO SECTION (Matching "hero reference.png" with 100% fidelity & full interactivity)
           ==================================================================== */}
       <section className="hero-master-card" aria-label="KĀLORA Atelier">
-        {/* Visual master art-directed scene from hero reference.png with Custom Pottery */}
+        {/* Visual master art-directed scene from hero reference.png with clean plaster wall */}
         <img
           src={heroMasterImg}
           alt="KĀLORA Atelier - Jaipur Art Studio: Art for Your Spaces"
           className="hero-master-img"
         />
 
-        {/* Interactive pixel-matched hotspot overlays with clear hover and active click response */}
-        <div className="hero-interactive-overlay">
+        {/* Real HTML Action Buttons: text and border elevate together on hover */}
+        <div className="hero-cta-button-strip">
           {/* Button 1: Explore Collection */}
           <button
             type="button"
             onClick={scrollToCollection}
-            className="hero-hotspot hero-hotspot-b1"
+            className="btn-hero-cta btn-hero-cta-primary"
             title="Explore Collection → View Available Original Canvases"
-            aria-label="Explore Collection"
-          />
+          >
+            Explore Collection →
+          </button>
 
           {/* Button 2: Commission Wall Mural */}
           <Link
             to={muralLink}
-            className="hero-hotspot hero-hotspot-b2"
+            className="btn-hero-cta btn-hero-cta-secondary"
             title={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural (₹150/sq ft)"}
-            aria-label={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural"}
-          />
+          >
+            {isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}
+          </Link>
 
           {/* Button 3: Custom Pottery */}
           <Link
             to={potteryLink}
-            className="hero-hotspot hero-hotspot-b3"
+            className="btn-hero-cta btn-hero-cta-secondary"
             title={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery → Customize Hand-Thrown Clay Pieces"}
-            aria-label={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery Studio"}
-          />
+          >
+            {isStudio ? "Manage Pottery Requests" : "Custom Pottery"}
+          </Link>
+        </div>
 
+        {/* Interactive hotspot overlays for the 3 Studio Pillars across the bottom */}
+        <div className="hero-pillars-overlay">
           {/* Pillar 1: Original Canvases */}
           <button
             type="button"
             onClick={scrollToCollection}
-            className="hero-hotspot-pillar hero-hotspot-p1"
+            className="hero-pillar-hotspot"
             title="Original Canvases → Browse One-of-a-Kind Art"
             aria-label="Original Canvases - One-of-a-Kind Art"
           />
@@ -96,7 +102,7 @@ export default function Gallery() {
           {/* Pillar 2: Bespoke Spaces */}
           <Link
             to={muralLink}
-            className="hero-hotspot-pillar hero-hotspot-p2"
+            className="hero-pillar-hotspot"
             title={isStudio ? "Bespoke Spaces → Mural Bookings Queue" : "Bespoke Spaces → Architectural Murals at ₹150/sq ft"}
             aria-label="Bespoke Spaces - Architectural Murals"
           />
@@ -104,7 +110,7 @@ export default function Gallery() {
           {/* Pillar 3: Studio Pottery */}
           <Link
             to={potteryLink}
-            className="hero-hotspot-pillar hero-hotspot-p3"
+            className="hero-pillar-hotspot"
             title={isStudio ? "Studio Pottery → Pottery Requests Queue" : "Studio Pottery → Artisanal Handcrafted Clay Pottery"}
             aria-label="Studio Pottery - Handcrafted Clay Pottery"
           />
