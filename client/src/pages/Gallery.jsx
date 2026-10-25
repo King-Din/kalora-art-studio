@@ -57,13 +57,13 @@ export default function Gallery() {
           className="hero-master-img"
         />
 
-        {/* Real HTML Action Buttons: text and border elevate together on hover */}
+        {/* Real HTML Action Buttons: seamlessly aligned with hero reference */}
         <div className="hero-cta-button-strip">
           {/* Button 1: Explore Collection */}
           <button
             type="button"
             onClick={scrollToCollection}
-            className="btn-hero-cta btn-hero-cta-primary"
+            className="btn-hero-cta btn-hero-cta-1 btn-hero-cta-primary"
             title="Explore Collection → View Available Original Canvases"
           >
             <span className="btn-hero-cta-text">Explore Collection →</span>
@@ -72,19 +72,19 @@ export default function Gallery() {
           {/* Button 2: Commission Wall Mural */}
           <Link
             to={muralLink}
-            className="btn-hero-cta btn-hero-cta-secondary"
+            className="btn-hero-cta btn-hero-cta-2 btn-hero-cta-secondary"
             title={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural (₹150/sq ft)"}
           >
-            <span className="btn-hero-cta-text">{isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}</span>
+            <span className="btn-hero-cta-text">Commission Wall Mural</span>
           </Link>
 
           {/* Button 3: Custom Pottery */}
           <Link
             to={potteryLink}
-            className="btn-hero-cta btn-hero-cta-secondary"
+            className="btn-hero-cta btn-hero-cta-3 btn-hero-cta-secondary"
             title={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery → Customize Hand-Thrown Clay Pieces"}
           >
-            <span className="btn-hero-cta-text">{isStudio ? "Manage Pottery Requests" : "Custom Pottery"}</span>
+            <span className="btn-hero-cta-text">Custom Pottery</span>
           </Link>
         </div>
 

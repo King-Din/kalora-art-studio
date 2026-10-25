@@ -433,10 +433,10 @@ main {
 .hero-cta-button-strip {
   position: absolute;
   left: 3.58%;
-  top: 54.62%;
+  top: 54.46%;
   display: flex;
   align-items: center;
-  gap: clamp(0.5rem, 1.95cqw, 1.95rem);
+  gap: 1.70cqw;
   z-index: 10;
 }
 
@@ -445,12 +445,12 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: clamp(34px, 3.71cqw, 58px);
-  min-height: clamp(34px, 3.71cqw, 58px);
-  padding: 0 clamp(0.75rem, 1.45cqw, 1.75rem);
+  height: clamp(34px, 3.77cqw, 60px);
+  min-height: clamp(34px, 3.77cqw, 60px);
   border-radius: clamp(4px, 0.4cqw, 6px);
   font-family: var(--font-sans);
-  font-size: clamp(0.76rem, 0.98cqw, 0.98rem);
+  font-size: clamp(0.70rem, 0.94cqw, 0.95rem);
+  font-weight: 500;
   letter-spacing: 0.015em;
   cursor: pointer;
   text-decoration: none;
@@ -466,13 +466,30 @@ main {
               border-color 0.22s ease,
               color 0.22s ease;
   will-change: transform, box-shadow;
+  box-sizing: border-box;
+}
+
+/* Exact proportional button widths matching hero reference */
+.btn-hero-cta-1 {
+  width: clamp(134px, 15.15cqw, 241px);
+  padding: 0 clamp(0.45rem, 1.5cqw, 1.85rem);
+}
+
+.btn-hero-cta-2 {
+  width: clamp(136px, 15.34cqw, 244px);
+  padding: 0 clamp(0.35rem, 1.35cqw, 1.85rem);
+}
+
+.btn-hero-cta-3 {
+  width: clamp(114px, 12.95cqw, 206px);
+  padding: 0 clamp(0.45rem, 1.8cqw, 2.15rem);
 }
 
 /* Text inside CTA button that actively and synchronously elevates with the button border */
 .btn-hero-cta-text {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
+  justify-content: center;
   transform: translateY(0);
   transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
               text-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
@@ -602,7 +619,10 @@ main {
     flex-direction: column;
     gap: 0.65rem;
   }
-  .btn-hero-cta {
+  .btn-hero-cta,
+  .btn-hero-cta-1,
+  .btn-hero-cta-2,
+  .btn-hero-cta-3 {
     width: 100%;
     justify-content: center;
     height: 48px;
