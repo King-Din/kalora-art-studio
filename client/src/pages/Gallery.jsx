@@ -7,7 +7,7 @@ import AsyncState from "../components/AsyncState.jsx";
 import BuyButton from "../components/BuyButton.jsx";
 import { Badge, Img } from "../components/Common.jsx";
 import { useAsync } from "../hooks/useAsync.js";
-import heroArtImg from "../assets/hero-interior-feathered.png";
+import heroMasterImg from "../assets/hero-card-master.png";
 
 export default function Gallery() {
   const { user } = useAuth();
@@ -28,93 +28,112 @@ export default function Gallery() {
   return (
     <div>
       {/* ====================================================================
-          HERO SECTION (Matching "hero reference.png")
+          HERO SECTION (Matching "hero reference.png" with 100% fidelity)
           ==================================================================== */}
-      <section className="hero-frame" aria-label="KĀLORA Atelier">
-        <div className="hero-main-row">
-          <div className="hero-text-col">
-            <span className="hero-kicker">✦ HANDCRAFTED IN INDIA · JAIPUR ATELIER</span>
-            <h1 className="hero-heading">Art for Your Spaces</h1>
-            <p className="hero-lead">
-              Immerse yourself in authentic contemporary Indian artistry. From one-of-a-kind original
-              canvases to bespoke architectural wall murals and hand-thrown studio pottery.
-            </p>
-            <div className="hero-cta-group">
-              <a href="#collection" className="btn-hero-primary">
-                Explore Collection →
-              </a>
-              <Link to="/book" className="btn-hero-secondary">
-                Commission Wall Mural
-              </Link>
-              <Link to="/pottery" className="btn-hero-secondary">
-                Pottery Studio
-              </Link>
-            </div>
-          </div>
+      <section className="hero-master-card" aria-label="KĀLORA Atelier">
+        {/* Visual master art-directed scene from hero reference.png */}
+        <img
+          src={heroMasterImg}
+          alt="KĀLORA Atelier - Jaipur Art Studio: Art for Your Spaces"
+          className="hero-master-img"
+        />
 
-          <div className="hero-art-col">
-            <img
-              src={heroArtImg}
-              alt="Artisan Indian interior with peacock painting and lotus murals"
-              className="hero-art-img"
-            />
-          </div>
+        {/* Interactive pixel-matched hotspot overlays */}
+        <div className="hero-interactive-overlay">
+          {/* Button 1: Explore Collection */}
+          <a
+            href="#collection"
+            className="hero-hotspot hero-hotspot-b1"
+            title="Explore Collection"
+            aria-label="Explore Collection"
+          />
+
+          {/* Button 2: Commission Wall Mural */}
+          <Link
+            to="/book"
+            className="hero-hotspot hero-hotspot-b2"
+            title="Commission Wall Mural"
+            aria-label="Commission Wall Mural"
+          />
+
+          {/* Button 3: Custom Ceramics / Pottery Studio */}
+          <Link
+            to="/pottery"
+            className="hero-hotspot hero-hotspot-b3"
+            title="Custom Ceramics & Pottery Studio"
+            aria-label="Custom Ceramics & Pottery Studio"
+          />
+
+          {/* Pillar 1: Original Canvases */}
+          <a
+            href="#collection"
+            className="hero-hotspot-pillar hero-hotspot-p1"
+            title="Original Canvases - One-of-a-Kind Art"
+            aria-label="Original Canvases - One-of-a-Kind Art"
+          />
+
+          {/* Pillar 2: Bespoke Spaces */}
+          <Link
+            to="/book"
+            className="hero-hotspot-pillar hero-hotspot-p2"
+            title="Bespoke Spaces - Architectural Murals"
+            aria-label="Bespoke Spaces - Architectural Murals"
+          />
+
+          {/* Pillar 3: Studio Ceramics */}
+          <Link
+            to="/pottery"
+            className="hero-hotspot-pillar hero-hotspot-p3"
+            title="Studio Ceramics - Handcrafted Clay Pottery"
+            aria-label="Studio Ceramics - Handcrafted Clay Pottery"
+          />
         </div>
 
-        {/* 3 Studio Pillars (Bottom of Hero Frame) */}
-        <div className="hero-pillars-row">
-          <div className="pillar-item">
-            <div className="pillar-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                <circle cx="8.5" cy="8.5" r="1.5" />
-                <polyline points="21 15 16 10 5 21" />
-              </svg>
-            </div>
-            <div className="pillar-content">
-              <span className="pillar-kicker">ORIGINAL CANVASES</span>
-              <h3 className="pillar-title">One-of-a-Kind Art</h3>
-              <p className="pillar-desc">
-                Every painting is a unique original. Once acquired, it is archived forever.
-              </p>
-            </div>
+        {/* Accessible Semantic DOM for Screen Readers, Assistive Tech and SEO */}
+        <div className="sr-only">
+          <span className="hero-kicker">✦ HANDCRAFTED IN INDIA · JAIPUR ATELIER</span>
+          <h1 className="hero-heading">Art for Your Spaces</h1>
+          <p className="hero-lead">
+            Immerse yourself in authentic contemporary Indian artistry. From one-of-a-kind original
+            canvases to bespoke architectural wall murals and hand-thrown studio pottery.
+          </p>
+          <div className="hero-cta-group">
+            <a href="#collection">Explore Collection →</a>
+            <Link to="/book">Commission Wall Mural</Link>
+            <Link to="/pottery">Custom Ceramics & Pottery Studio</Link>
           </div>
-
-          <div className="pillar-item">
-            <div className="pillar-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M4 21V10a8 8 0 0 1 16 0v11" />
-                <path d="M4 21h16" />
-                <path d="M9 21v-6a3 3 0 0 1 6 0v6" />
-              </svg>
+          <div className="hero-pillars-semantic">
+            <div>
+              <span>ORIGINAL CANVASES</span>
+              <h3>One-of-a-Kind Art</h3>
+              <p>Every painting is a unique original. Once acquired, it is archived forever.</p>
             </div>
-            <div className="pillar-content">
-              <span className="pillar-kicker">BESPOKE SPACES</span>
-              <h3 className="pillar-title">Architectural Murals</h3>
-              <p className="pillar-desc">
-                Custom site-specific murals hand-painted at a fixed studio rate of ₹150/sq ft.
-              </p>
+            <div>
+              <span>BESPOKE SPACES</span>
+              <h3>Architectural Murals</h3>
+              <p>Custom site-specific murals hand-painted at a fixed studio rate of ₹150/sq ft.</p>
             </div>
-          </div>
-
-          <div className="pillar-item">
-            <div className="pillar-icon" aria-hidden="true">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M8 3h8l1 4c0 3-2 5-2 7 0 3 2 4 2 7H7c0-3 2-4 2-7 0-2-2-4-2-7l1-4z" />
-                <path d="M10 3v4" />
-                <path d="M14 3v4" />
-              </svg>
-            </div>
-            <div className="pillar-content">
-              <span className="pillar-kicker">POTTERY STUDIO</span>
-              <h3 className="pillar-title">Handcrafted Clay Pottery</h3>
-              <p className="pillar-desc">
-                Wheel-thrown clay tableware and decor finished with custom mineral glazes.
-              </p>
+            <div>
+              <span>STUDIO CERAMICS</span>
+              <h3>Handcrafted Clay Pottery</h3>
+              <p>Wheel-thrown clay tableware and decor finished with custom mineral glazes.</p>
             </div>
           </div>
         </div>
       </section>
+
+      {/* Mobile CTA quick tray (enhanced touch targets on mobile screens) */}
+      <div className="hero-mobile-cta">
+        <a href="#collection" className="btn-hero-primary">
+          Explore Collection →
+        </a>
+        <Link to="/book" className="btn-hero-secondary">
+          Commission Wall Mural
+        </Link>
+        <Link to="/pottery" className="btn-hero-secondary">
+          Pottery Studio
+        </Link>
+      </div>
 
       {/* ====================================================================
           CATALOG SECTION & FILTER BAR

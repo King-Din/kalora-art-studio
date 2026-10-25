@@ -403,74 +403,125 @@ main {
 }
 
 /* ==========================================================================
-   HERO SECTION (Pixel-matched to "hero reference.png")
+   HERO SECTION (100% Exact to "hero reference.png")
    ========================================================================== */
 
-.hero-frame {
-  background-color: var(--surface-hero);
-  border: 1px solid var(--gold-border);
+.hero-master-card {
+  position: relative;
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto 3.5rem auto;
   border-radius: var(--radius-hero);
-  box-shadow: var(--shadow-hero);
+  border: 1px solid var(--gold-border);
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   overflow: hidden;
-  margin-bottom: 3.5rem;
-  position: relative;
+  background-color: #072216;
 }
 
-.hero-main-row {
-  display: grid;
-  grid-template-columns: 1.15fr 0.85fr;
-  align-items: stretch;
-  min-height: 460px;
-  position: relative;
+.hero-master-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 1591 / 639;
+  object-fit: cover;
+  pointer-events: none;
+  user-select: none;
 }
 
-.hero-text-col {
-  padding: 3.5rem 3.5rem 2.5rem 3.5rem;
-  display: flex;
-  flex-direction: column;
+.hero-interactive-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
   z-index: 2;
 }
 
-.hero-kicker {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  font-size: 0.78rem;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-weight: 600;
-  color: var(--gold-antique);
-  margin-bottom: 1.15rem;
+.hero-hotspot {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+  outline: none;
 }
 
-.hero-heading {
-  font-family: var(--font-serif);
-  font-size: 3.8rem;
-  font-weight: 500;
-  line-height: 1.08;
-  letter-spacing: -0.01em;
-  color: var(--text-ivory);
-  margin: 0 0 1.25rem 0;
+/* Button 1: Explore Collection */
+.hero-hotspot-b1 {
+  left: 3.58%;
+  top: 54.62%;
+  width: 15.27%;
+  height: 7.04%;
+}
+.hero-hotspot-b1:hover,
+.hero-hotspot-b1:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.75), 0 4px 16px rgba(169, 78, 45, 0.6);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.hero-lead {
-  font-size: 1.08rem;
-  line-height: 1.65;
-  color: var(--text-sage);
-  max-width: 580px;
-  margin: 0 0 2rem 0;
+/* Button 2: Commission Wall Mural */
+.hero-hotspot-b2 {
+  left: 20.43%;
+  top: 54.62%;
+  width: 15.40%;
+  height: 7.04%;
+}
+.hero-hotspot-b2:hover,
+.hero-hotspot-b2:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold-antique), 0 4px 16px rgba(212, 172, 104, 0.35);
+  background: rgba(255, 255, 255, 0.08);
 }
 
-.hero-cta-group {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  flex-wrap: wrap;
+/* Button 3: Custom Ceramics & Pottery */
+.hero-hotspot-b3 {
+  left: 37.46%;
+  top: 54.62%;
+  width: 13.01%;
+  height: 7.04%;
+}
+.hero-hotspot-b3:hover,
+.hero-hotspot-b3:focus-visible {
+  box-shadow: 0 0 0 2px var(--gold-antique), 0 4px 16px rgba(212, 172, 104, 0.35);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* Hotspots for 3 Pillars across the bottom */
+.hero-hotspot-pillar {
+  position: absolute;
+  pointer-events: auto;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+  outline: none;
+}
+
+.hero-hotspot-p1 {
+  left: 2.51%;
+  top: 75.90%;
+  width: 29.54%;
+  height: 21.91%;
+}
+.hero-hotspot-p2 {
+  left: 33.31%;
+  top: 75.90%;
+  width: 30.17%;
+  height: 21.91%;
+}
+.hero-hotspot-p3 {
+  left: 65.37%;
+  top: 75.90%;
+  width: 32.06%;
+  height: 21.91%;
+}
+
+.hero-hotspot-pillar:hover,
+.hero-hotspot-pillar:focus-visible {
+  background: rgba(212, 172, 104, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(212, 172, 104, 0.4);
 }
 
 .btn-hero-primary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 0.5rem;
   background-color: var(--terracotta);
   color: #FFFFFF !important;
@@ -483,6 +534,7 @@ main {
   cursor: pointer;
   transition: all 0.2s ease;
   box-shadow: var(--shadow-btn);
+  text-decoration: none;
 }
 
 .btn-hero-primary:hover {
@@ -494,6 +546,7 @@ main {
 .btn-hero-secondary {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   background: transparent;
   color: var(--text-ivory) !important;
   border: 1px solid rgba(255, 255, 255, 0.24);
@@ -503,6 +556,7 @@ main {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
 }
 
 .btn-hero-secondary:hover {
@@ -511,112 +565,28 @@ main {
   color: var(--gold-light) !important;
 }
 
-.hero-art-col {
-  height: 100%;
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-end;
-}
-
-.hero-art-img {
-  width: 100%;
-  height: 100%;
-  min-height: 460px;
-  object-fit: cover;
-  object-position: right center;
-}
-
-/* 3 Studio Pillars in Hero Frame (matching hero reference.png bottom) */
-.hero-pillars-row {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  padding: 1.85rem 3.5rem;
-  border-top: 1px solid var(--gold-border-subtle);
-  background: rgba(8, 30, 20, 0.5);
-}
-
-.pillar-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 1rem;
-}
-
-.pillar-icon {
-  color: var(--gold-antique);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-
-.pillar-content {
-  display: flex;
-  flex-direction: column;
-}
-
-.pillar-kicker {
-  font-size: 0.68rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.14em;
-  color: var(--gold-antique);
-  margin-bottom: 0.25rem;
-}
-
-.pillar-title {
-  font-family: var(--font-serif);
-  font-size: 1.25rem;
-  font-weight: 600;
-  color: var(--text-ivory);
-  margin: 0 0 0.35rem 0;
-}
-
-.pillar-desc {
-  font-size: 0.84rem;
-  color: var(--text-sage-muted);
-  line-height: 1.5;
-  margin: 0;
-}
-
-@media (max-width: 1080px) {
-  .hero-main-row {
-    grid-template-columns: 1fr;
-  }
-  .hero-art-col {
-    display: flex;
-    width: 100%;
-    height: 360px;
-    border-top: 1px solid var(--gold-border-subtle);
-  }
-  .hero-art-img {
-    width: 100%;
-    height: 100%;
-    min-height: auto;
-    object-fit: cover;
-    object-position: center;
-  }
-  .hero-text-col {
-    padding: 2.5rem 2rem;
-  }
-  .hero-heading {
-    font-size: 2.8rem;
-  }
-  .hero-pillars-row {
-    grid-template-columns: 1fr;
-    padding: 2rem;
-    gap: 1.5rem;
-  }
+/* Mobile CTA button tray (hidden on desktop/tablet, visible on phone) */
+.hero-mobile-cta {
+  display: none;
 }
 
 @media (max-width: 640px) {
-  .hero-art-col {
-    height: 240px;
+  .hero-master-card {
+    margin-bottom: 1.5rem;
   }
-  .hero-heading {
-    font-size: 2.2rem;
+  .hero-mobile-cta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
   }
-  .hero-text-col {
-    padding: 2rem 1.25rem;
+  .hero-mobile-cta .btn-hero-primary,
+  .hero-mobile-cta .btn-hero-secondary {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 0.9rem 1.25rem;
   }
 }
 
