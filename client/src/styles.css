@@ -416,6 +416,7 @@ main {
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.45);
   overflow: hidden;
   background-color: #072216;
+  container-type: inline-size;
 }
 
 .hero-master-img {
@@ -428,14 +429,14 @@ main {
   user-select: none;
 }
 
-/* Real HTML Action Buttons: seamlessly aligned inside the hero card */
+/* Real HTML Action Buttons: seamlessly aligned with hero reference proportions */
 .hero-cta-button-strip {
   position: absolute;
   left: 3.58%;
   top: 54.62%;
   display: flex;
   align-items: center;
-  gap: 1.15rem;
+  gap: clamp(0.5rem, 1.95cqw, 1.95rem);
   z-index: 10;
 }
 
@@ -444,25 +445,40 @@ main {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  height: 54px;
-  min-height: 54px;
-  border-radius: 6px;
+  height: clamp(34px, 3.71cqw, 58px);
+  min-height: clamp(34px, 3.71cqw, 58px);
+  padding: 0 clamp(0.75rem, 1.45cqw, 1.75rem);
+  border-radius: clamp(4px, 0.4cqw, 6px);
   font-family: var(--font-sans);
-  font-size: 0.96rem;
-  letter-spacing: 0.01em;
-  padding: 0 1.65rem;
+  font-size: clamp(0.76rem, 0.98cqw, 0.98rem);
+  letter-spacing: 0.015em;
   cursor: pointer;
   text-decoration: none;
   white-space: nowrap;
   outline: none;
-  border: none;
-  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
-              box-shadow 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+  border: 1px solid transparent;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+  transform: translateY(0);
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
               background-color 0.22s ease,
               border-color 0.22s ease,
               color 0.22s ease;
-  user-select: none;
-  -webkit-tap-highlight-color: transparent;
+  will-change: transform, box-shadow;
+}
+
+/* Text inside CTA button that actively and synchronously elevates with the button border */
+.btn-hero-cta-text {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  transform: translateY(0);
+  transition: transform 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              text-shadow 0.26s cubic-bezier(0.16, 1, 0.3, 1),
+              color 0.22s ease;
+  will-change: transform;
+  pointer-events: none;
 }
 
 /* Button 1: Terracotta Filled Button */
@@ -476,15 +492,26 @@ main {
 
 .btn-hero-cta-primary:hover,
 .btn-hero-cta-primary:focus-visible {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   background-color: #ba5733;
   border-color: #ba5733;
-  box-shadow: 0 10px 24px rgba(169, 78, 45, 0.65), 0 0 0 1.5px rgba(255, 255, 255, 0.6);
+  box-shadow: 0 14px 28px rgba(169, 78, 45, 0.65), 0 0 0 1.5px rgba(255, 255, 255, 0.75);
+}
+
+.btn-hero-cta-primary:hover .btn-hero-cta-text,
+.btn-hero-cta-primary:focus-visible .btn-hero-cta-text {
+  transform: translateY(-1.5px);
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.45);
 }
 
 .btn-hero-cta-primary:active {
-  transform: translateY(-1px) scale(0.98);
-  box-shadow: 0 3px 10px rgba(169, 78, 45, 0.5);
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 3px 8px rgba(169, 78, 45, 0.5);
+}
+
+.btn-hero-cta-primary:active .btn-hero-cta-text {
+  transform: translateY(0);
+  text-shadow: none;
 }
 
 /* Buttons 2 & 3: Dark Green Outline Buttons */
@@ -492,23 +519,35 @@ main {
   background-color: rgba(6, 32, 20, 0.85);
   color: #f4ecdf !important;
   font-weight: 500;
-  border: 1px solid rgba(255, 255, 255, 0.28);
+  border: 1px solid rgba(255, 255, 255, 0.30);
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
   backdrop-filter: blur(4px);
 }
 
 .btn-hero-cta-secondary:hover,
 .btn-hero-cta-secondary:focus-visible {
-  transform: translateY(-3px);
+  transform: translateY(-4px);
   background-color: rgba(212, 172, 104, 0.18);
   border-color: var(--gold-antique);
   color: #ffffff !important;
-  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45), 0 0 0 1.5px var(--gold-antique);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.50), 0 0 0 1.5px var(--gold-antique);
+}
+
+.btn-hero-cta-secondary:hover .btn-hero-cta-text,
+.btn-hero-cta-secondary:focus-visible .btn-hero-cta-text {
+  transform: translateY(-1.5px);
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.55);
 }
 
 .btn-hero-cta-secondary:active {
-  transform: translateY(-1px) scale(0.98);
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.35);
+  transform: translateY(-1px) scale(0.99);
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.35);
+}
+
+.btn-hero-cta-secondary:active .btn-hero-cta-text {
+  transform: translateY(0);
+  text-shadow: none;
 }
 
 /* 3 Studio Pillars Hotspot Overlay across the bottom */
@@ -548,31 +587,6 @@ main {
 .hero-pillar-hotspot:active {
   transform: translateY(0px) scale(0.99);
   background: rgba(212, 172, 104, 0.24);
-}
-
-@media (max-width: 1080px) {
-  .hero-cta-button-strip {
-    gap: 0.85rem;
-  }
-  .btn-hero-cta {
-    height: 48px;
-    min-height: 48px;
-    padding: 0 1.25rem;
-    font-size: 0.88rem;
-  }
-}
-
-@media (max-width: 820px) {
-  .hero-cta-button-strip {
-    top: 51%;
-    gap: 0.65rem;
-  }
-  .btn-hero-cta {
-    height: 42px;
-    min-height: 42px;
-    padding: 0 0.95rem;
-    font-size: 0.80rem;
-  }
 }
 
 @media (max-width: 640px) {

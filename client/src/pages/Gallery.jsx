@@ -66,7 +66,7 @@ export default function Gallery() {
             className="btn-hero-cta btn-hero-cta-primary"
             title="Explore Collection → View Available Original Canvases"
           >
-            Explore Collection →
+            <span className="btn-hero-cta-text">Explore Collection →</span>
           </button>
 
           {/* Button 2: Commission Wall Mural */}
@@ -75,7 +75,7 @@ export default function Gallery() {
             className="btn-hero-cta btn-hero-cta-secondary"
             title={isStudio ? "Manage Mural Bookings Queue" : "Commission Wall Mural (₹150/sq ft)"}
           >
-            {isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}
+            <span className="btn-hero-cta-text">{isStudio ? "Manage Mural Bookings" : "Commission Wall Mural"}</span>
           </Link>
 
           {/* Button 3: Custom Pottery */}
@@ -84,7 +84,7 @@ export default function Gallery() {
             className="btn-hero-cta btn-hero-cta-secondary"
             title={isStudio ? "Manage Pottery Requests Queue" : "Custom Pottery → Customize Hand-Thrown Clay Pieces"}
           >
-            {isStudio ? "Manage Pottery Requests" : "Custom Pottery"}
+            <span className="btn-hero-cta-text">{isStudio ? "Manage Pottery Requests" : "Custom Pottery"}</span>
           </Link>
         </div>
 
